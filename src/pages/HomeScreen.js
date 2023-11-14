@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Image, View, TouchableOpacity, Text } from 'rea
 import { Appbar, Button, Card, Title, Paragraph, Provider as PaperProvider } from 'react-native-paper';
 import sombrinha from '../../assets/photo-sombrinha.png'
 import pacoFrevo from '../../assets/photo-paco.png'
+import detalhes from '../../assets/detalhes.png'
 const HomeScreen = () => {
   return (
     <PaperProvider>
@@ -29,6 +30,10 @@ const HomeScreen = () => {
           <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#00377B', padding: 10, borderRadius: 5 }}>
             <Text style={{ textAlign: 'center', color: '#fff' }}>DASHBOARD</Text>
           </TouchableOpacity>
+          <Image
+              source={detalhes}
+              style={{ position: 'relative', right: 25, width: 300, height: 100, marginTop: 30 }}
+            />
         </View>
       </ScrollView>
     </PaperProvider>
@@ -40,7 +45,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   viewText: {
-    height: 550,
+    height: 700,
 
   },
   textTitle: {
