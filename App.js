@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, RouteProp, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages/HomeScreen';
+import LoginScreen from './src/pages/LoginScreen';
 
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+         <Stack.Screen name="Login" component={LoginScreen} />
          <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
