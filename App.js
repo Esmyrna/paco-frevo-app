@@ -19,6 +19,7 @@ export default function App() {
          <Stack.Screen name="Home" component={HomeScreen} />
          <Stack.Screen name="Form" component={ListAllDatas} />
          <Stack.Screen name="Form-2" component={FormLegalDatas} />
+         <Stack.Screen name="ListAll" component={ListAllAssociations} />
      
       </Stack.Navigator>
     </NavigationContainer>
