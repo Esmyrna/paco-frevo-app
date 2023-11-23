@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { useQuery } from 'react-query';
-import { fetchAssociations } from '../api/api';
+import { fetchAssociations } from '../../api/api'
 
 const ListAllAssociations = () => {
   const [page, setPage] = useState(1);

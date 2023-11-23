@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages/HomeScreen';
 import LoginScreen from './src/pages/LoginScreen';
 import ListAllDatas from './src/pages/FormDatas';
+import FormLegalDatas from './src/pages/FormLegalDatas';
+import ListAllAssociations from './src/pages/ListAllAssociations';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
