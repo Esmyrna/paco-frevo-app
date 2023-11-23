@@ -1,10 +1,23 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Image, View, TouchableOpacity, Text } from 'react-native';
-import { Appbar, Button, Card, Title, Paragraph, Provider as PaperProvider } from 'react-native-paper';
+import { Title, Paragraph, Provider as PaperProvider } from 'react-native-paper';
 import sombrinha from '../../assets/photo-sombrinha.png'
 import pacoFrevo from '../../assets/photo-paco.png'
 import detalhes from '../../assets/detalhes.png'
+import { useNavigation } from '@react-navigation/native';
+
 const HomeScreen = () => {
+  const navigation = useNavigation();
+  
+  const handleForm = () => {
+     navigation.navigate("Form");
+  };
+
+  const handleListAll = () => {
+    navigation.navigate("ListAll")
+  }
+
+
   return (
     <PaperProvider>
       <ScrollView style={styles.container}>
@@ -24,11 +37,11 @@ const HomeScreen = () => {
             />
           </View>
           <Title style={styles.title}>O QUE DESEJAS?</Title>
-          <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#27962D', padding: 10, borderRadius: 5 }}>
+          <TouchableOpacity onPress={handleForm} style={{ marginTop: 10, backgroundColor: '#27962D', padding: 10, borderRadius: 5 }}>
             <Text style={{ textAlign: 'center', color: '#fff' }}>CADASTRAR AGREMIAÇÃO</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#00377B', padding: 10, borderRadius: 5 }}>
-            <Text style={{ textAlign: 'center', color: '#fff' }}>DASHBOARD</Text>
+            <Text onPress={handleListAll} style={{ textAlign: 'center', color: '#fff' }}>AGREMIAÇÕES CADASTRADAS</Text>
           </TouchableOpacity>
           <Image
               source={detalhes}
