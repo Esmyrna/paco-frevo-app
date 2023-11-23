@@ -18,6 +18,7 @@ export default function App() {
          <Stack.Screen name="Login" component={LoginScreen} />
          <Stack.Screen name="Home" component={HomeScreen} />
          <Stack.Screen name="Form" component={ListAllDatas} />
+         <Stack.Screen name="Form-2" component={FormLegalDatas} />
      
       </Stack.Navigator>
     </NavigationContainer>
