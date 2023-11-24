@@ -9,8 +9,12 @@ const ListAllAssociations = () => {
 
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
-        const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
-        return dateObject.toLocaleTimeString(undefined, options);
+        const day = dateObject.getDate();
+        const month = dateObject.getMonth() + 1;
+        const year = dateObject.getFullYear();
+        
+        const options = `${day}/${month}/${year}`
+        return options;
     }
 
     const { data: associations, isFetchingMore } = useQuery(
