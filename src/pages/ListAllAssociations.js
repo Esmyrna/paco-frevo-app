@@ -7,7 +7,11 @@ import { Card } from 'react-native-paper';
 const ListAllAssociations = () => {
     const [page, setPage] = useState(1);
 
-  
+    const formatDate = (dateString) => {
+        const dateObject = new Date(dateString);
+        const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
+        return dateObject.toLocaleTimeString(undefined, options);
+    }
 
     const { data: associations, isFetchingMore } = useQuery(
         ['associations', page],
@@ -35,7 +39,7 @@ const ListAllAssociations = () => {
                             </Text>
                             <Text>
                             <Text>Data de Fundação: </Text>
-                                {item.foundationDate}
+                                {formatDate(item.foundationDate)}
                             </Text>
                             <Text>
                             <Text>Cores: </Text>
