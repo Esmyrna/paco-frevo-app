@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, ScrollView} from 'react-native';
 import { useQuery } from 'react-query';
 import { fetchAssociations } from '../../api/api'
 import { Card } from 'react-native-paper';
@@ -30,35 +30,122 @@ const ListAllAssociations = () => {
 
     return (
         <View style={styles.container}>
-            <Text>Associações Cadastradas:</Text>
+            <Text style={styles.textTitleApi}>Associações Cadastradas:</Text>
+            
             <FlatList
                 data={associations?.result || []}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View>
                         <Card style={styles.card}>
-                            <Text style={styles.cardText}> 
-                             <Text>Nome: </Text>
-                                {item.name}
+                            <Text> 
+                             <Text style={styles.cardText}>Nome: </Text>
+                             <Text style={styles.textApi}>
+                             {item.name}
+                             </Text>
+                             
                             </Text>
                             <Text>
-                            <Text>Data de Fundação: </Text>
-                                {formatDate(item.foundationDate)}
+                            <Text style={styles.cardText}>Data de Fundação: </Text>
+                            <Text style={styles.textApi}>
+                             {formatDate(item.foundationDate)}
+                            </Text> 
                             </Text>
                             <Text>
-                            <Text>Cores: </Text>
-                                {item.colors}
+                            <Text style={styles.cardText}>Cores: </Text>
+                            <Text style={styles.textApi}>
+                             {item.colors.join(', ')}
+                            </Text>
                             </Text>
                             <Text>
-                            <Text>Tipo de Associação: </Text>
-                               {item.associationType}
+                            <Text style={styles.cardText}>Tipo de Associação: </Text>
+                               <Text style={styles.textApi}>{item.associationType}</Text>
                             </Text>
                         </Card>
+                        <Card style={styles.card}>
+                            <Text> 
+                             <Text style={styles.cardText}>Nome: </Text>
+                             <Text style={styles.textApi}>
+                             {item.name}
+                             </Text>
+                             
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Data de Fundação: </Text>
+                            <Text style={styles.textApi}>
+                             {formatDate(item.foundationDate)}
+                            </Text> 
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Cores: </Text>
+                            <Text style={styles.textApi}>
+                             {item.colors.join(', ')}
+                            </Text>
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Tipo de Associação: </Text>
+                               <Text style={styles.textApi}>{item.associationType}</Text>
+                            </Text>
+                        </Card>
+                        <Card style={styles.card}>
+                            <Text> 
+                             <Text style={styles.cardText}>Nome: </Text>
+                             <Text style={styles.textApi}>
+                             {item.name}
+                             </Text>
+                             
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Data de Fundação: </Text>
+                            <Text style={styles.textApi}>
+                             {formatDate(item.foundationDate)}
+                            </Text> 
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Cores: </Text>
+                            <Text style={styles.textApi}>
+                             {item.colors.join(', ')}
+                            </Text>
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Tipo de Associação: </Text>
+                               <Text style={styles.textApi}>{item.associationType}</Text>
+                            </Text>
+                        </Card>
+                        <Card style={styles.card}>
+                            <Text> 
+                             <Text style={styles.cardText}>Nome: </Text>
+                             <Text style={styles.textApi}>
+                             {item.name}
+                             </Text>
+                             
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Data de Fundação: </Text>
+                            <Text style={styles.textApi}>
+                             {formatDate(item.foundationDate)}
+                            </Text> 
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Cores: </Text>
+                            <Text style={styles.textApi}>
+                             {item.colors.join(', ')}
+                            </Text>
+                            </Text>
+                            <Text>
+                            <Text style={styles.cardText}>Tipo de Associação: </Text>
+                               <Text style={styles.textApi}>{item.associationType}</Text>
+                            </Text>
+                        </Card>
+                       
                     </View>
+                    
                 )}
                 ListFooterComponent={isFetchingMore && <Text>Carregando mais...</Text>}
             />
+            
         </View>
+        
     );
 };
 
@@ -70,7 +157,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 20,
         marginTop: 10,
+    },
+    cardText: {
+        fontWeight: 'bold',
+        color: '#E20821',
+        fontSize: 14
+    },
+    textApi: {
+        color: '#000',
+        fontSize: 14
+    },
+    textTitleApi: {
+        fontSize: 24,
     }
+
 });
 
 export default ListAllAssociations;
