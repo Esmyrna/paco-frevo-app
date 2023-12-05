@@ -6,6 +6,8 @@ import LoginScreen from './src/pages/LoginScreen';
 import ListAllDatas from './src/pages/FormDatas';
 import FormLegalDatas from './src/pages/FormLegalDatas';
 import ListAllAssociations from './src/pages/ListAllAssociations';
+import ListAllFrevoMakers from './src/pages/ListFrevoMakers';
+import CreateEntityScreen from './src/pages/CreateEntityScreen'
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
@@ -22,7 +24,8 @@ export default function App() {
          <Stack.Screen name="Form" component={ListAllDatas} />
          <Stack.Screen name="Form-2" component={FormLegalDatas} />
          <Stack.Screen name="ListAll" component={ListAllAssociations} />
-     
+         <Stack.Screen name="ListAllFrevo" component={ListAllFrevoMakers} />
+         <Stack.Screen name="CreateEntity" component={CreateEntityScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     </QueryClientProvider>

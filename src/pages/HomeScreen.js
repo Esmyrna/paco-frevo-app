@@ -14,7 +14,15 @@ const HomeScreen = () => {
   };
 
   const handleListAll = () => {
-    navigation.navigate("ListAll")
+    navigation.navigate("ListAll");
+  }
+
+  const handleListAllFrevo = () => {
+    navigation.navigate("ListAllFrevo");
+  }
+
+  const handleCreateEntity = () => {
+    navigation.navigate("CreateEntity");
   }
 
 
@@ -42,6 +50,12 @@ const HomeScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#00377B', padding: 10, borderRadius: 5 }}>
             <Text onPress={handleListAll} style={{ textAlign: 'center', color: '#fff' }}>AGREMIAÇÕES CADASTRADAS</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#27962D', padding: 10, borderRadius: 5 }}>
+            <Text onPress={handleCreateEntity} style={{ textAlign: 'center', color: '#fff' }}>CADASTRAR FREVO MAKERS</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#00377B', padding: 10, borderRadius: 5 }}>
+            <Text onPress={handleListAllFrevo} style={{ textAlign: 'center', color: '#fff' }}>FREVO MAKERS CADASTRADAS</Text>
           </TouchableOpacity>
           <Image
               source={detalhes}
