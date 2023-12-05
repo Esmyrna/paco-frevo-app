@@ -4,6 +4,7 @@ import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import { TextInput, Button, Snackbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import LogoPF from '../../assets/logo-paco.png';
+import HomePaco from '../../assets/home-sobre-predio.png'
 
 // Create the LoginScreen component
 const LoginScreen = () => {
@@ -21,27 +22,26 @@ const LoginScreen = () => {
   };
 
   return (
+    
     <View style={styles.container}>
-      <Image source={LogoPF} style={{ width: 60, height: 80, display: 'flex', alignSelf: 'center', marginTop: 25 }} />
+      <Image source={HomePaco} style={{ width: 80, height: 90, display: 'flex', alignSelf: 'center', marginTop: 25 }} />
       <View style={styles.inputsContainer}>
         <TextInput
-          label="DIGITE SEU E-MAIL"
+          label="Digite seu E-mail"
           value={username}
           onChangeText={(text) => setUsername(text)}
-          contentStyle={{ borderRadius: 5, backgroundColor: '#FFF', borderWidth: 1 }}
+          contentStyle={{ borderRadius: 5, backgroundColor: '#FFF', borderWidth: 0 }}
         />
         <TextInput
-          label="DIGITE SUA SENHA"
+          label="Digite sua senha"
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
-          contentStyle={{ borderRadius: 5, backgroundColor: '#FFF', borderWidth: 1 }}
+          contentStyle={{ borderRadius: 5, backgroundColor: '#FFF', borderWidth: 0, }}
         />
-        {/* <Button mode="contained" onPress={handleLogin} buttonColor='#00377B'>
-        Login
-      </Button > */}
-        <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#27962D', padding: 20, borderRadius: 5 }} onPress={handleLogin}>
-          <Text style={{ textAlign: 'center', color: '#fff', fontSize: 15 }}>ENTRAR</Text>
+      
+        <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#DCDCDC', padding: 12, borderRadius: 5, }} onPress={handleLogin}>
+          <Text style={{ textAlign: 'center', color: '#000', fontSize: 15 }}>Acessar</Text>
         </TouchableOpacity>
         <Snackbar
           visible={snackbarVisible}
@@ -66,11 +66,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
     gap: 25,
+    
+    backgroundColor: 'linear-gradient(0deg, rgba(166,15,15,1) 0%, rgba(236,55,23,1) 100%)', 
   },
   inputsContainer: {
     justifyContent: 'center',
-    padding: 16,
-    paddingBottom: 26,
+    padding: 10,
+    paddingBottom: 32,
     gap: 25,
   },
 });

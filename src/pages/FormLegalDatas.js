@@ -9,9 +9,7 @@ const FormLegalDatas = () => {
   const [senha, setSenha] = useState('');
   const [genero, setGenero] = useState('');
  
-    
-
-
+  
   const generoOptions = [
     { label: 'Masculino', value: 'masculino' },
     { label: 'Feminino', value: 'feminino' },

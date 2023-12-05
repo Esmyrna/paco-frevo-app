@@ -20,6 +20,7 @@
     "expo-updates": "~0.16.4",
     "react": "18.2.0",
     "react-native": "0.72.6",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-paper": "^5.11.1",
     "react-native-picker-select": "^9.0.0",
     "react-query": "^3.39.3",

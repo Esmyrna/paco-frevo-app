@@ -1,21 +1,59 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, FlatList, ScrollView} from 'react-native';
-import { useQuery } from 'react-query';
-import { fetchAssociations } from '../../api/api'
-import { Card } from 'react-native-paper';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { useQuery, useMutation } from 'react-query';
+import { fetchAssociations } from '../../api/api';
+import { Card, Menu, Divider } from 'react-native-paper';
 
 const ListAllAssociations = () => {
     const [page, setPage] = useState(1);
+    const [openMenuId, setOpenMenuId] = useState(null);
+    const [selectedAssociation, setSelectedAssociation] = useState(null);
 
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
         const day = dateObject.getDate();
         const month = dateObject.getMonth() + 1;
         const year = dateObject.getFullYear();
-        
-        const options = `${day}/${month}/${year}`
+        const options = `${day}/${month}/${year}`;
         return options;
-    }
+    };
+
+    const handleUpdate = () => {
+        if (selectedAssociation) {
+            console.log(`Atualizando associação com ID ${selectedAssociation.id}`);
+        }
+        setOpenMenuId(null);
+    };
+
+    
+      const handleDelete =  async (associationId)  => {
+        try {
+            const response = await fetch(`your-api-endpoint/${associationId}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+        
+            if (!response.ok) {
+              throw new Error('Falha ao excluir a associação');
+            }
+        
+            return response.json();
+          } catch (error) {
+            throw new Error(`Falha ao excluir a associação: ${error.message}`);
+          }
+      };
+
+    const handleOpenMenu = (associationId) => {
+        setSelectedAssociation(associationId);
+        setOpenMenuId(associationId);
+    };
+
+    const handleCloseMenu = () => {
+        setSelectedAssociation(null);
+        setOpenMenuId(null);
+    };
 
     const { data: associations, isFetchingMore } = useQuery(
         ['associations', page],
@@ -31,121 +69,50 @@ const ListAllAssociations = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.textTitleApi}>Associações Cadastradas:</Text>
-            
+
             <FlatList
                 data={associations?.result || []}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View>
                         <Card style={styles.card}>
-                            <Text> 
-                             <Text style={styles.cardText}>Nome: </Text>
-                             <Text style={styles.textApi}>
-                             {item.name}
-                             </Text>
-                             
+                            <TouchableOpacity onPress={() => handleOpenMenu(item.id)}>
+                                <Text style={styles.menuIcon}>☰</Text>
+                            </TouchableOpacity>
+                            <Menu
+                                visible={openMenuId === item.id}
+                                onDismiss={handleCloseMenu}
+                                anchor={
+                                    <View style={styles.cardHeader}>
+                                        <Text>
+                                            <Text style={styles.cardText}>Nome: </Text>
+                                            <Text style={styles.textApi}>{item.name}</Text>
+                                        </Text>
+                                    </View>
+                                }
+                                anchorStyle={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                                <Menu.Item onPress={handleUpdate} title="Atualizar" />
+                                <Divider />
+                                <Menu.Item onPress={handleDelete} title="Deletar" />
+                            </Menu>
+                            <Text>
+                                <Text style={styles.cardText}>Data de Fundação: </Text>
+                                <Text style={styles.textApi}>{formatDate(item.foundationDate)}</Text>
                             </Text>
                             <Text>
-                            <Text style={styles.cardText}>Data de Fundação: </Text>
-                            <Text style={styles.textApi}>
-                             {formatDate(item.foundationDate)}
-                            </Text> 
+                                <Text style={styles.cardText}>Cores: </Text>
+                                <Text style={styles.textApi}>{item.colors.join(', ')}</Text>
                             </Text>
                             <Text>
-                            <Text style={styles.cardText}>Cores: </Text>
-                            <Text style={styles.textApi}>
-                             {item.colors.join(', ')}
-                            </Text>
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Tipo de Associação: </Text>
-                               <Text style={styles.textApi}>{item.associationType}</Text>
+                                <Text style={styles.cardText}>Tipo de Associação: </Text>
+                                <Text style={styles.textApi}>{item.associationType}</Text>
                             </Text>
                         </Card>
-                        <Card style={styles.card}>
-                            <Text> 
-                             <Text style={styles.cardText}>Nome: </Text>
-                             <Text style={styles.textApi}>
-                             {item.name}
-                             </Text>
-                             
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Data de Fundação: </Text>
-                            <Text style={styles.textApi}>
-                             {formatDate(item.foundationDate)}
-                            </Text> 
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Cores: </Text>
-                            <Text style={styles.textApi}>
-                             {item.colors.join(', ')}
-                            </Text>
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Tipo de Associação: </Text>
-                               <Text style={styles.textApi}>{item.associationType}</Text>
-                            </Text>
-                        </Card>
-                        <Card style={styles.card}>
-                            <Text> 
-                             <Text style={styles.cardText}>Nome: </Text>
-                             <Text style={styles.textApi}>
-                             {item.name}
-                             </Text>
-                             
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Data de Fundação: </Text>
-                            <Text style={styles.textApi}>
-                             {formatDate(item.foundationDate)}
-                            </Text> 
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Cores: </Text>
-                            <Text style={styles.textApi}>
-                             {item.colors.join(', ')}
-                            </Text>
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Tipo de Associação: </Text>
-                               <Text style={styles.textApi}>{item.associationType}</Text>
-                            </Text>
-                        </Card>
-                        <Card style={styles.card}>
-                            <Text> 
-                             <Text style={styles.cardText}>Nome: </Text>
-                             <Text style={styles.textApi}>
-                             {item.name}
-                             </Text>
-                             
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Data de Fundação: </Text>
-                            <Text style={styles.textApi}>
-                             {formatDate(item.foundationDate)}
-                            </Text> 
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Cores: </Text>
-                            <Text style={styles.textApi}>
-                             {item.colors.join(', ')}
-                            </Text>
-                            </Text>
-                            <Text>
-                            <Text style={styles.cardText}>Tipo de Associação: </Text>
-                               <Text style={styles.textApi}>{item.associationType}</Text>
-                            </Text>
-                        </Card>
-                       
                     </View>
-                    
                 )}
                 ListFooterComponent={isFetchingMore && <Text>Carregando mais...</Text>}
             />
-            
         </View>
-        
     );
 };
 
@@ -158,19 +125,27 @@ const styles = StyleSheet.create({
         padding: 20,
         marginTop: 10,
     },
+    cardHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     cardText: {
         fontWeight: 'bold',
         color: '#E20821',
-        fontSize: 14
+        fontSize: 14,
     },
     textApi: {
         color: '#000',
-        fontSize: 14
+        fontSize: 14,
     },
     textTitleApi: {
         fontSize: 24,
-    }
-
+    },
+    menuIcon: {
+        fontSize: 20,
+        marginRight: 10,
+    },
 });
 
 export default ListAllAssociations;

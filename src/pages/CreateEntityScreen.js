@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import axios from 'axios';
-import OtherFrevoEntityDTO from './other-frevo-entity.dto';
+ 
 
 const CreateEntityScreen = () => {
   const [formData, setFormData] = useState({

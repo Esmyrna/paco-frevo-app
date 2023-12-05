@@ -9,6 +9,7 @@ import ListAllAssociations from './src/pages/ListAllAssociations';
 import ListAllFrevoMakers from './src/pages/ListFrevoMakers';
 import CreateEntityScreen from './src/pages/CreateEntityScreen'
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,9 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+     
     <NavigationContainer>
+    <PaperProvider>
       <Stack.Navigator>
          <Stack.Screen name="Login" component={LoginScreen} />
          <Stack.Screen name="Home" component={HomeScreen} />
@@ -27,7 +30,9 @@ export default function App() {
          <Stack.Screen name="ListAllFrevo" component={ListAllFrevoMakers} />
          <Stack.Screen name="CreateEntity" component={CreateEntityScreen} />
       </Stack.Navigator>
+      </PaperProvider>
     </NavigationContainer>
+
     </QueryClientProvider>
 
   );
