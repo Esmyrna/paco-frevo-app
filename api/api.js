@@ -15,3 +15,14 @@ export const fetchAssociations = async (page = 1, pageSize = 10) => {
     throw error;  
   }
 };
+
+export const deleteAssociation = async (id) => {
+  try {
+    console.log(id);
+    const response = await api.delete(`/associations/id/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting association:', error);
+    throw error;
+  }
+};
