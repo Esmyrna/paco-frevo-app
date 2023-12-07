@@ -12,6 +12,16 @@ export const fetchAssociations = async (page = 1, pageSize = 10) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching associations:', error);
-    throw error;  
+    throw error; 
+  }
+};
+
+export const fetchAssociationById = async (id) => {
+  try {
+    const response = await api.get(`/associations/id/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching association:', error);
+    throw error;
   }
 };
