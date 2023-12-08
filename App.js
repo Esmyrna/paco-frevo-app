@@ -3,13 +3,15 @@ import { NavigationContainer, RouteProp, useNavigation } from "@react-navigation
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages/HomeScreen';
 import LoginScreen from './src/pages/LoginScreen';
-import ListAllDatas from './src/pages/FormDatas';
-import FormLegalDatas from './src/pages/FormLegalDatas';
+import ListAllDatas from './src/pages/FirstForm';
+import FormLegalDatas from './src/pages/SecondForm';
 import ListAllAssociations from './src/pages/ListAllAssociations';
 import ListAllFrevoMakers from './src/pages/ListFrevoMakers';
 import CreateEntityScreen from './src/pages/CreateEntityScreen'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as PaperProvider } from 'react-native-paper';
+import EventForm from './src/pages/EventMemberForm';
+import SocialNetworkContactsForm from './src/pages/SocialNetworkContactsForm';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +20,6 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-     
     <NavigationContainer>
     <PaperProvider>
       <Stack.Navigator>
@@ -29,6 +30,8 @@ export default function App() {
          <Stack.Screen name="ListAll" component={ListAllAssociations} />
          <Stack.Screen name="ListAllFrevo" component={ListAllFrevoMakers} />
          <Stack.Screen name="CreateEntity" component={CreateEntityScreen} />
+         <Stack.Screen name="EventMemberForm" component={EventForm} />
+         <Stack.Screen name="SocialNetworkContactsForm" component={SocialNetworkContactsForm} />
       </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>

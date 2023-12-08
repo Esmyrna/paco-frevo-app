@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Title } from 'react-native-paper';
+import { Title, RadioButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import { useMutation } from 'react-query';
 import { useNavigation } from '@react-navigation/native';
 import simbols from '../../assets/simbols.png'
 const enviarDadosParaBackend = async (dados) => {
+
   const response = await axios.post('sua_url_do_backend/sua_rota_do_backend', dados);
 
   if (!response.data) {
@@ -16,7 +17,7 @@ const enviarDadosParaBackend = async (dados) => {
   return response.data;
 };
 
-const FormDatas = () => {
+const EventForm = () => {
   const [nome, setNome] = useState('');
   const [nomeAgremiacao, setNomeAgremiacao] = useState('');
   const [tipoAgremiacao, setTipoAgremiacao] = useState('');
@@ -24,48 +25,38 @@ const FormDatas = () => {
   const [integrantes, setIntegrantes] = useState('');
   const [presidente, setPresidente] = useState('');
   const [contatos, setContatos] = useState('');
-
+  const [checkedOne, setCheckedOne] = useState('true');
+  const [checkedTwo, setCheckedTwo] = useState('true');
   const navigation = useNavigation();
 
   const mutation = useMutation(enviarDadosParaBackend);
 
-  const handleEnviar = async () => {
-    navigation.navigate("Form-2");
+  const handleSocialNetworkContacts = async () => {
+    navigation.navigate("SocialNetworkContactsForm");
   };
 
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <View style={{ padding: 10 }}>
-        <Image
-          source={simbols}
-          style={{ position: 'relative', right: 0, width: 100, height: 60, marginTop: 5 }}
-        />
-        <Title style={styles.titleForm}>Dados gerais:</Title>
 
-        <Text style={styles.titleInput}>Nome da agremiação</Text>
+        <Title style={styles.titleForm}>Membros</Title>
+
+        <Text style={styles.titleInput}>Nome</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => setNome(text)}
           value={nome}
         />
 
-        <Text style={styles.titleInput}>Em caso de outro, especifique:</Text>
+        <Text style={styles.titleInput}>Sobrenome:</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => setNomeAgremiacao(text)}
           value={nomeAgremiacao}
         />
 
-        <Text style={styles.titleInput}>Tipo de agremiação:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setTipoAgremiacao(text)}
-          value={tipoAgremiacao}
-          keyboardType="email-address"
-        />
-
-        <Text style={styles.titleInput}>Cores:</Text>
+        <Text style={styles.titleInput}>Membro ativo:</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => setCores(text)}
@@ -73,15 +64,33 @@ const FormDatas = () => {
           secureTextEntry
         />
 
-        <Text style={styles.titleInput}>Integrantes ativos:</Text>
+        <Text style={styles.titleInput}>Tempo de atuação em meses:</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(text) => setIntegrantes(text)}
-          value={integrantes}
-          secureTextEntry
+          onChangeText={(text) => setTipoAgremiacao(text)}
+          value={tipoAgremiacao}
+          keyboardType="email-address"
         />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={styles.titleInput}>Frevo é a principal renda?</Text>
+          <RadioButton
+            value="true"
+            status={checkedOne === 'true' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOne('true')}
+          />
+          <Text>True</Text>
 
-        <Text style={styles.titleInput}>Presidente:</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <RadioButton
+              value="false"
+              status={checkedOne === 'false' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedOne('false')}
+            />
+            <Text>False</Text>
+          </View>
+        </View>
+        <Title style={styles.titleForm}>Evento</Title>
+        <Text style={styles.titleInput}>Tipo de evento:</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => setPresidente(text)}
@@ -89,16 +98,23 @@ const FormDatas = () => {
           secureTextEntry
         />
 
-      
-      <Text style={styles.titleInput}>Contatos:</Text>
+        <Text style={styles.titleInput}>Data de realização:</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(text) => setContatos(text)}
-          value={contatos}
+          onChangeText={(text) => setPresidente(text)}
+          value={presidente}
           secureTextEntry
         />
-       
-        <TouchableOpacity onPress={handleEnviar} style={{ marginTop: 10, backgroundColor: '#00377B', padding: 10, borderRadius: 5 }}>
+        <Text style={styles.titleInput}>Quantidade de participantes:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setPresidente(text)}
+          value={presidente}
+          secureTextEntry
+        />
+
+
+        <TouchableOpacity onPress={handleSocialNetworkContacts} style={{ marginTop: 10, backgroundColor: '#00377B', padding: 10, borderRadius: 5 }}>
           <Text style={{ textAlign: 'center', color: '#fff' }}>Próxima etapa</Text>
         </TouchableOpacity>
       </View>
@@ -137,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FormDatas;
+export default EventForm;
