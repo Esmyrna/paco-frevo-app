@@ -30,6 +30,7 @@ const FormDatas = () => {
   });
 
   const handleSendData = () => {
+    navigation.navigate("ListAll")
     mutation.mutate({
       name: nome,
       foundationDate: dataFundacao,
@@ -40,8 +41,8 @@ const FormDatas = () => {
       hasOwnedHeadquarters: sede === 'true',
       isLegalEntity: entidadeLegal === 'true',
       canIssueOwnReceipts: entidadeLegal === 'true',
-      cnpj: "34430746000157",
-      associationHistoryNotes: "historia",
+      cnpj: cnpj,
+      associationHistoryNotes: historia,
       address: {
         addressSite: "Rua Exemplo, 123",
         number: "123",
@@ -91,6 +92,8 @@ const FormDatas = () => {
   const [integrantes, setIntegrantes] = useState('');
   const [residencia, setResidencia] = useState('true');
   const [sede, setSede] = useState('true');
+  const [cnpj, setCnpj] = useState('');
+  const [historia, setHistoria] = useState('');
   const [entidadeLegal, setEntidadeLegal] = useState('');
   const [checkedOne, setCheckedOne] = useState('true');
   const [checkedTwo, setCheckedTwo] = useState('true');
@@ -140,7 +143,20 @@ const FormDatas = () => {
           style={styles.input}
           onChangeText={(text) => setIntegrantes(text)}
           value={integrantes}
+        />
 
+        <Text style={styles.titleInput}>Conte um pouco sobre a agremiação:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setHistoria(text)}
+          value={historia}
+        />
+
+        <Text style={styles.titleInput}>Cnpj:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setCnpj(text)}
+          value={cnpj}
         />
 
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -198,7 +214,7 @@ const FormDatas = () => {
           </View>
         </View>
         <TouchableOpacity onPress={handleSendData} style={{ marginTop: 10, backgroundColor: '#00377B', padding: 10, borderRadius: 5 }}>
-          <Text style={{ textAlign: 'center', color: '#fff' }}>Próxima etapa</Text>
+          <Text style={{ textAlign: 'center', color: '#fff' }}>Enviar</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -232,7 +248,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     backgroundColor: '#fff',
-    borderRadius: 10
+    borderRadius: 10,
+    padding: 10,
   },
 });
 
