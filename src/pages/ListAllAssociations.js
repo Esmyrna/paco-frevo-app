@@ -3,11 +3,14 @@ import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native
 import { useQuery, useMutation } from 'react-query';
 import { fetchAssociations } from '../../api/api';
 import { Card, Menu, Divider } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 const ListAllAssociations = () => {
     const [page, setPage] = useState(1);
     const [openMenuId, setOpenMenuId] = useState(null);
     const [selectedAssociation, setSelectedAssociation] = useState(null);
+    const [snackbarVisible, setSnackbarVisible] = useState(null);
+    const navigation = useNavigation();
 
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
@@ -25,6 +28,13 @@ const ListAllAssociations = () => {
         setOpenMenuId(null);
     };
 
+    const handleViewAssociation = (associationId) => {
+        navigation.navigate("ViewAssociation", {
+          itemId: associationId,
+          otherParam: "anything you want here",
+        });
+        setSnackbarVisible(true);
+      };      
     
       const handleDelete =  async (associationId)  => {
         try {
@@ -107,6 +117,9 @@ const ListAllAssociations = () => {
                                 <Text style={styles.cardText}>Tipo de Associação: </Text>
                                 <Text style={styles.textApi}>{item.associationType}</Text>
                             </Text>
+                            <TouchableOpacity onPress={() => handleViewAssociation(item.id)}>
+                              <Text>Ver associação</Text>
+                            </TouchableOpacity>
                         </Card>
                     </View>
                 )}

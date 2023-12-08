@@ -8,6 +8,7 @@ import FormLegalDatas from './src/pages/FormLegalDatas';
 import ListAllAssociations from './src/pages/ListAllAssociations';
 import ListAllFrevoMakers from './src/pages/ListFrevoMakers';
 import CreateEntityScreen from './src/pages/CreateEntityScreen'
+import ViewAssociationPage from './src/pages/ViewAssociationPage'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as PaperProvider } from 'react-native-paper';
 
@@ -29,6 +30,7 @@ export default function App() {
          <Stack.Screen name="ListAll" component={ListAllAssociations} />
          <Stack.Screen name="ListAllFrevo" component={ListAllFrevoMakers} />
          <Stack.Screen name="CreateEntity" component={CreateEntityScreen} />
+         <Stack.Screen name="ViewAssociation" component={ViewAssociationPage} />
       </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>
