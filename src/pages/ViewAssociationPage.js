@@ -4,7 +4,7 @@ import { fetchAssociationById } from '../../api/api';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { useRoute } from '@react-navigation/native';
 
-const ViewAssociationPage = ({associationId}) => {
+const ViewAssociationPage = ({ associationId }) => {
   const [association, setAssociation] = useState(null);
   const route = useRoute();
 
@@ -40,22 +40,24 @@ const ViewAssociationPage = ({associationId}) => {
             <Paragraph style={styles.text}>Histórico da Associação: {association.associationHistoryNotes}</Paragraph>
 
             {association.address && (
-              <View>
-                <Title style={styles.yellowTitle}>Endereço:</Title>
-                <Paragraph style={styles.text}>{association.address.addressSite}, {association.address.number}{association.address.complement}</Paragraph>
-                <Paragraph style={styles.text}>{association.address.district}</Paragraph>
-                <Paragraph style={styles.text}>{association.address.city}, {association.address.state}, {association.address.country}</Paragraph>
-                <Paragraph style={styles.text}>CEP: {association.address.zipCode}</Paragraph>
-              </View>
+              <>
+                <Title style={styles.greenTitle}>Endereço:</Title>
+                <View style={styles.innerCard}>
+                  <Paragraph style={styles.text}>{association.address.addressSite}, {association.address.number}{association.address.complement}</Paragraph>
+                  <Paragraph style={styles.text}>{association.address.district}</Paragraph>
+                  <Paragraph style={styles.text}>{association.address.city}, {association.address.state}, {association.address.country}</Paragraph>
+                  <Paragraph style={styles.text}>CEP: {association.address.zipCode}</Paragraph>
+                </View>
+              </>
             )}
 
             {association.events && (
               <ScrollView>
                 <Title style={styles.blueTitle}>Eventos:</Title>
                 {association.events.map(event => (
-                  <View key={event.id}>
+                  <View key={event.id} style={styles.innerCard}>
                     <Paragraph style={styles.text}>Tipo: {event.eventType}</Paragraph>
-                    <Paragraph style={styles.text}>Data: {event.dateOfAccomplishment}</Paragraph>
+                    <Paragraph style={styles.text}>Data: {new Date(event.dateOfAccomplishment).toLocaleDateString()}</Paragraph>
                     <Paragraph style={styles.text}>Número de Participantes: {event.participantsAmount}</Paragraph>
                   </View>
                 ))}
@@ -64,9 +66,9 @@ const ViewAssociationPage = ({associationId}) => {
 
             {association.members && (
               <ScrollView>
-                <Title style={styles.subTitle}>Membros:</Title>
+                <Title style={styles.greenTitle}>Membros:</Title>
                 {association.members.map(member => (
-                  <View key={member.id}>
+                  <View key={member.id} style={styles.innerCard}>
                     <Paragraph style={styles.text}>Nome: {member.name}</Paragraph>
                     <Paragraph style={styles.text}>Sobrenome: {member.surname}</Paragraph>
                     <Paragraph style={styles.text}>Cargo: {member.role}</Paragraph>
@@ -79,7 +81,7 @@ const ViewAssociationPage = ({associationId}) => {
               <ScrollView>
                 <Title style={styles.subTitle}>Redes Sociais:</Title>
                 {association.socialNetworks.map(network => (
-                  <View key={network.id}>
+                  <View key={network.id} style={styles.innerCard}>
                     <Paragraph style={styles.text}>Tipo: {network.socialNetworkType}</Paragraph>
                     <Paragraph style={styles.text}>URL: {network.url}</Paragraph>
                   </View>
@@ -89,9 +91,9 @@ const ViewAssociationPage = ({associationId}) => {
 
             {association.contacts && (
               <ScrollView>
-                <Title style={styles.yellowTitle}>Contatos:</Title>
+                <Title style={styles.blueTitle}>Contatos:</Title>
                 {association.contacts.map(contact => (
-                  <View key={contact.id}>
+                  <View key={contact.id} style={styles.innerCard}>
                     <Paragraph style={styles.text}>Destinatário: {contact.addressTo}</Paragraph>
                     <Paragraph style={styles.text}>Email: {contact.email}</Paragraph>
                     {/* {contact.phoneNumbers.map(phoneNumber => (
@@ -116,12 +118,30 @@ const ViewAssociationPage = ({associationId}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FF5252',
+    backgroundColor: '#FF5231',
   },
   card: {
     margin: 20,
     backgroundColor: '#FFF',
     borderRadius: 10,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    gap: 5,
+  },
+  innerCard: {
+    margin: 10,
+    padding: 5,
+    gap: 1,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#127200",
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: {
@@ -138,7 +158,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
     textAlign: 'center',
-    color: '#FF5252',
+    color: '#FF5231',
   },
   redTitle: {
     fontSize: 24,
@@ -146,7 +166,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
     textAlign: 'left',
-    color: '#FF5252', // Vermelho
+    color: '#FF5231', // Vermelho
   },
   yellowTitle: {
     fontSize: 24,
@@ -154,7 +174,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
     textAlign: 'left',
-    color: '#FFD700', // Amarelo
+    color: '#FFF43E', // Amarelo
   },
   blueTitle: {
     fontSize: 24,
@@ -164,12 +184,20 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: '#1E90FF', // Azul
   },
+  greenTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 15,
+    marginBottom: 10,
+    textAlign: 'left',
+    color: '#127200',
+  },
   subTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 15,
     marginBottom: 5,
-    color: '#FF5252',
+    color: '#FF5231',
   },
   text: {
     fontSize: 18,
@@ -180,7 +208,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginTop: 50,
-    color: '#FF5252',
+    color: '#FF5231',
   },
 });
 
