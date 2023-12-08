@@ -28,13 +28,13 @@ const ListAllAssociations = () => {
         setOpenMenuId(null);
     };
 
-    const handleViewAssociation = () => {
-      navigation.navigate("ViewAssociation", {
-        itemId: 86,
-        otherParam: "anything you want here",
-      });
-      setSnackbarVisible(true);
-    };
+    const handleViewAssociation = (associationId) => {
+        navigation.navigate("ViewAssociation", {
+          itemId: associationId,
+          otherParam: "anything you want here",
+        });
+        setSnackbarVisible(true);
+      };      
     
       const handleDelete =  async (associationId)  => {
         try {
@@ -117,7 +117,7 @@ const ListAllAssociations = () => {
                                 <Text style={styles.cardText}>Tipo de Associação: </Text>
                                 <Text style={styles.textApi}>{item.associationType}</Text>
                             </Text>
-                            <TouchableOpacity onPress={handleViewAssociation}>
+                            <TouchableOpacity onPress={() => handleViewAssociation(item.id)}>
                               <Text>Ver associação</Text>
                             </TouchableOpacity>
                         </Card>

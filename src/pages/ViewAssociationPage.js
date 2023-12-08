@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { fetchAssociationById } from '../../api/api';
 import { Card, Title, Paragraph } from 'react-native-paper';
+import { useRoute } from '@react-navigation/native';
 
-const ViewAssociationPage = () => {
+const ViewAssociationPage = ({associationId}) => {
   const [association, setAssociation] = useState(null);
+  const route = useRoute();
 
   useEffect(() => {
+    const { itemId } = route.params;
+
     const fetchData = async () => {
       try {
-        const fetchedAssociation = await fetchAssociationById("cc26deb9-b9b4-4b28-8788-684134d24855");
+        const fetchedAssociation = await fetchAssociationById(itemId);
         setAssociation(fetchedAssociation);
       } catch (error) {
         console.error("Erro ao buscar associação:", error);
@@ -17,13 +21,14 @@ const ViewAssociationPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [route.params]);
+
 
   return (
     <ScrollView style={styles.container}>
       {association ? (
         <Card style={styles.card}>
-          <Card.Content style = {{gap: 20,}}>
+          <Card.Content style={{ gap: 20, }}>
             <Title style={styles.title}>Detalhes da Associação</Title>
             <Paragraph style={styles.text}>Nome: {association.name}</Paragraph>
             <Paragraph style={styles.text}>Data de Fundação: {association.foundationDate}</Paragraph>
@@ -89,6 +94,11 @@ const ViewAssociationPage = () => {
                   <View key={contact.id}>
                     <Paragraph style={styles.text}>Destinatário: {contact.addressTo}</Paragraph>
                     <Paragraph style={styles.text}>Email: {contact.email}</Paragraph>
+                    {/* {contact.phoneNumbers.map(phoneNumber => (
+                      <View key={phoneNumber.id}>
+                        <Paragraph style={styles.text}>Telefone: ({phoneNumber.areaCode}) {phoneNumber.number}</Paragraph>
+                      </View>
+                    ))} */}
                   </View>
                 ))}
               </ScrollView>
