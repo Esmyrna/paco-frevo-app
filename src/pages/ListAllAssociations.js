@@ -3,11 +3,13 @@ import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native
 import { useQuery, useMutation } from 'react-query';
 import { fetchAssociations } from '../../api/api';
 import { Card, Menu, Divider } from 'react-native-paper';
-
+import { useNavigation } from '@react-navigation/native';
 const ListAllAssociations = () => {
+    const navigation = useNavigation();
     const [page, setPage] = useState(1);
     const [openMenuId, setOpenMenuId] = useState(null);
     const [selectedAssociation, setSelectedAssociation] = useState(null);
+    const [snackbarVisible, setSnackbarVisible] = useState(null);
 
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
@@ -18,13 +20,21 @@ const ListAllAssociations = () => {
         return options;
     };
 
-    const handleUpdate = () => {
+    const handleUpdate = (associationId) => {
         if (selectedAssociation) {
-            console.log(`Atualizando associação com ID ${selectedAssociation.id}`);
-        }
-        setOpenMenuId(null);
+            console.log(`Atualizando associação com ID ${associationId}`);
+            navigation.navigate('UpdateForm', { associationId: associationId });
+          }
+          setOpenMenuId(null);
     };
 
+    const handleViewAssociation = (associationId) => {
+        navigation.navigate("ViewAssociation", {
+          itemId: associationId,
+          otherParam: "anything you want here",
+        });
+        setSnackbarVisible(true);
+      };      
     
       const handleDelete =  async (associationId)  => {
         try {
@@ -91,7 +101,7 @@ const ListAllAssociations = () => {
                                     </View>
                                 }
                                 anchorStyle={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                                <Menu.Item onPress={handleUpdate} title="Atualizar" />
+                                <Menu.Item onPress={() => handleUpdate(item.id)} title="Atualizar" />
                                 <Divider />
                                 <Menu.Item onPress={handleDelete} title="Deletar" />
                             </Menu>
@@ -107,6 +117,9 @@ const ListAllAssociations = () => {
                                 <Text style={styles.cardText}>Tipo de Associação: </Text>
                                 <Text style={styles.textApi}>{item.associationType}</Text>
                             </Text>
+                            <TouchableOpacity onPress={() => handleViewAssociation(item.id)}>
+                              <Text>Ver associação</Text>
+                            </TouchableOpacity>
                         </Card>
                     </View>
                 )}
