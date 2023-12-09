@@ -12,7 +12,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as PaperProvider } from 'react-native-paper';
 import EventForm from './src/pages/EventMemberForm';
 import SocialNetworkContactsForm from './src/pages/SocialNetworkContactsForm';
-
+import UpdateFormScreen from './src/pages/UpdateFromScreen'
 const queryClient = new QueryClient();
 
 export default function App() {
@@ -32,6 +32,7 @@ export default function App() {
          <Stack.Screen name="CreateEntity" component={CreateEntityScreen} />
          <Stack.Screen name="EventMemberForm" component={EventForm} />
          <Stack.Screen name="SocialNetworkContactsForm" component={SocialNetworkContactsForm} />
+         <Stack.Screen name="UpdateForm" component={UpdateFormScreen} />
       </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>

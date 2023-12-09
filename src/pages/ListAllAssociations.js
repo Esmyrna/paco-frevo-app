@@ -3,8 +3,9 @@ import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native
 import { useQuery, useMutation } from 'react-query';
 import { fetchAssociations } from '../../api/api';
 import { Card, Menu, Divider } from 'react-native-paper';
-
+import { useNavigation } from '@react-navigation/native';
 const ListAllAssociations = () => {
+    const navigation = useNavigation();
     const [page, setPage] = useState(1);
     const [openMenuId, setOpenMenuId] = useState(null);
     const [selectedAssociation, setSelectedAssociation] = useState(null);
@@ -21,8 +22,9 @@ const ListAllAssociations = () => {
     const handleUpdate = () => {
         if (selectedAssociation) {
             console.log(`Atualizando associação com ID ${selectedAssociation.id}`);
-        }
-        setOpenMenuId(null);
+            navigation.navigate('UpdateForm', { associationId: selectedAssociation.id });
+          }
+          setOpenMenuId(null);
     };
 
     
