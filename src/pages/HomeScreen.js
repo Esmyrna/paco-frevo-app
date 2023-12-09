@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
    
   },
   title: {
-    textAlign: 'start',
     fontWeight: 600,
     color: '#fff',
     paddingBottom: 20

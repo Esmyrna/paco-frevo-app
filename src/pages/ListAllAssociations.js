@@ -4,13 +4,12 @@ import { useQuery, useMutation } from 'react-query';
 import { fetchAssociations } from '../../api/api';
 import { Card, Menu, Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-
 const ListAllAssociations = () => {
+    const navigation = useNavigation();
     const [page, setPage] = useState(1);
     const [openMenuId, setOpenMenuId] = useState(null);
     const [selectedAssociation, setSelectedAssociation] = useState(null);
     const [snackbarVisible, setSnackbarVisible] = useState(null);
-    const navigation = useNavigation();
 
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
@@ -21,11 +20,12 @@ const ListAllAssociations = () => {
         return options;
     };
 
-    const handleUpdate = () => {
+    const handleUpdate = (associationId) => {
         if (selectedAssociation) {
-            console.log(`Atualizando associação com ID ${selectedAssociation.id}`);
-        }
-        setOpenMenuId(null);
+            console.log(`Atualizando associação com ID ${associationId}`);
+            navigation.navigate('UpdateForm', { associationId: associationId });
+          }
+          setOpenMenuId(null);
     };
 
     const handleViewAssociation = (associationId) => {
@@ -101,7 +101,7 @@ const ListAllAssociations = () => {
                                     </View>
                                 }
                                 anchorStyle={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                                <Menu.Item onPress={handleUpdate} title="Atualizar" />
+                                <Menu.Item onPress={() => handleUpdate(item.id)} title="Atualizar" />
                                 <Divider />
                                 <Menu.Item onPress={handleDelete} title="Deletar" />
                             </Menu>
