@@ -1,7 +1,7 @@
 
 export const updateAssociation = async (associationId, updatedData) => {
     try {
-        const response = await fetch(`https://pacodofrevoapi1-6ka9yo5l.b4a.run/${associationId}`, {
+        const response = await fetch(`https://pacodofrevoapi1-6ka9yo5l.b4a.run/associations/id/${associationId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

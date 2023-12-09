@@ -8,6 +8,7 @@ import FormLegalDatas from './src/pages/SecondForm';
 import ListAllAssociations from './src/pages/ListAllAssociations';
 import ListAllFrevoMakers from './src/pages/ListFrevoMakers';
 import CreateEntityScreen from './src/pages/CreateEntityScreen'
+import ViewAssociationPage from './src/pages/ViewAssociationPage'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as PaperProvider } from 'react-native-paper';
 import EventForm from './src/pages/EventMemberForm';
@@ -33,6 +34,7 @@ export default function App() {
          <Stack.Screen name="EventMemberForm" component={EventForm} />
          <Stack.Screen name="SocialNetworkContactsForm" component={SocialNetworkContactsForm} />
          <Stack.Screen name="UpdateForm" component={UpdateFormScreen} />
+         <Stack.Screen name="ViewAssociation" component={ViewAssociationPage} />
       </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>

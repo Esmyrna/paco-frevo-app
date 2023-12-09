@@ -5,6 +5,7 @@ import simbols from '../../assets/simbols.png';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { fetchAssociationById } from '../../api/api';
 
 const UpdateFormScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -36,7 +37,8 @@ const UpdateFormScreen = ({ route }) => {
 
   const submitUpdate = async () => {
     try {
-      const response = await axios.put(`https://pacodofrevoapi1-6ka9yo5l.b4a.run/${associationId}`, associationData);
+      console.log(associationId);
+      const response = await axios.put(`https://pacodofrevoapi1-6ka9yo5l.b4a.run/associations/id/${associationId}`, associationData);
 
       console.log(response.data);
 
@@ -53,13 +55,8 @@ const UpdateFormScreen = ({ route }) => {
   useEffect(() => {
     const fetchAssociationData = async () => {
       try {
-        const response = await axios.get(`https://pacodofrevoapi1-6ka9yo5l.b4a.run/${associationId}`);
-  
-        if (!response.data.success) {
-          throw new Error('Erro ao obter dados da associação');
-        }
-
-        setAssociationData(response.data.data); 
+        const response = await fetchAssociationById(associationId)
+        setAssociationData(response); 
       } catch (error) {
         console.error('Error fetching association data:', error.message);
       }
